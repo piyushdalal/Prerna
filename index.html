@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prerna’s Safe Corner 💖</title>
+
+<meta name="theme-color" content="#fbc2eb">
+
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, sans-serif;
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  overflow: hidden;
+}
+
+.app { position: relative; height: 100vh; }
+
+.screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 100%;
+  top: 0;
+  opacity: 0;
+  transition: all 0.5s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.screen.active { left: 0; opacity: 1; }
+
+.card {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 18px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+button {
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  margin: 8px;
+  background: white;
+  cursor: pointer;
+}
+
+/* Hearts */
+.hearts {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts"></div>
+
+<div class="app">
+
+<!-- HOME -->
+<div id="home" class="screen active">
+  <div class="card">
+    <h1>Hey Prerna 💖</h1>
+    <p>
+      If you opened this, I know it’s one of those days.<br><br>
+      You’re not behind. You’re just tired.<br><br>
+      And tired people still win.
+    </p>
+
+    <button onclick="goTo('notes')">💌 Notes</button>
+    <button onclick="goTo('bad')">💔 Bad Day</button>
+    <button onclick="goTo('fun')">🎮 Fun</button>
+    <button onclick="goTo('deep')">🧠 Read this</button>
+  </div>
+</div>
+
+<!-- NOTES -->
+<div id="notes" class="screen">
+  <div class="card">
+    <h2>💌 Notes for you</h2>
+    <p id="note"></p>
+    <button onclick="newNote()">Open a note</button>
+    <button onclick="goTo('home')">⬅ Back</button>
+  </div>
+</div>
+
+<!-- BAD DAY -->
+<div id="bad" class="screen">
+  <div class="card">
+    <h2>💔 Bad day mode</h2>
+    <p id="badText"></p>
+    <button onclick="showBad()">Show message</button>
+    <button onclick="goTo('home')">⬅ Back</button>
+  </div>
+</div>
+
+<!-- FUN -->
+<div id="fun" class="screen">
+  <div class="card">
+    <h2>🎮 Little joy</h2>
+    <p id="funny"></p>
+    <button onclick="fun()">😂 Make me smile</button>
+    <button onclick="win()">🎉 I showed up today</button>
+    <button onclick="nice()">🌈 Tell me something nice</button>
+    <p id="niceText"></p>
+    <button onclick="goTo('home')">⬅ Back</button>
+  </div>
+</div>
+
+<!-- DEEP -->
+<div id="deep" class="screen">
+
+<div class="card">
+<h2>🧠 Read this slowly</h2>
+<p>
+You’re not struggling because you’re weak.<br>
+You’re struggling because this is hard.<br><br>
+Nobody talks about how exhausting it is to show up every day
+when your mind keeps telling you you’re not doing enough.<br><br>
+But you still show up.<br><br>
+Even if it’s messy. Even if it’s slow.<br><br>
+And that matters more than you realize.
+</p>
+</div>
+
+<div class="card">
+<h2>🫂 If you feel like giving up</h2>
+<p>
+If today feels like the day you might give up,<br>
+don’t decide that today.<br><br>
+Decide tomorrow.<br><br>
+And when tomorrow comes,<br>
+delay it again.<br><br>
+That’s how people survive hard things.
+</p>
+</div>
+
+<div class="card">
+<h2>💭 Things you need to hear</h2>
+<p>
+You’re not late.<br>
+You’re not behind.<br>
+You’re learning.<br>
+Confusion is part of mastery.<br>
+Even toppers feel lost sometimes.<br>
+This phase will end.
+</p>
+</div>
+
+<div class="card">
+<h2>🌙 Late night thoughts</h2>
+<p>
+It’s okay if today didn’t go as planned.<br><br>
+You’re allowed to rest without guilt.<br><br>
+Tomorrow is still yours.
+</p>
+</div>
+
+<div class="card">
+<button onclick="missMe()">🫂 Click when you miss me</button>
+</div>
+
+<button onclick="goTo('home')">⬅ Back</button>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+/* NAV */
+let current="home";
+function goTo(id){
+document.getElementById(current).classList.remove("active");
+setTimeout(()=>{
+document.getElementById(id).classList.add("active");
+current=id;
+},200);
+}
+
+/* HEARTS */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(4+Math.random()*4)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),8000);
+},500);
+
+/* NOTES (50+) */
+const notes = [
+"You’re doing better than you think.","I’m proud of you, always.","You don’t see it, but you’re improving.","You’re stronger than this syllabus.","I believe in you, even when you don’t.","You’ve already come so far.","You didn’t give up — that matters.","You are consistent, even if it doesn’t feel like it.","You’re allowed to go slow.","You’re still moving forward.","Every small effort is adding up.","You’re closer than yesterday.","You’re not failing — you’re learning.","You’re showing up. That’s rare.","You’re stronger than your doubts.","You don’t need to be perfect.","You just need to keep going.","You’re building something real.","You are capable of this.","You’ve handled harder things.","You’re not weak for feeling this way.","You’re human — and still trying.","You’re doing enough today.","You deserve to succeed.","You will look back and be proud.","You’re not stuck — you’re growing.","You’re figuring it out.","You are not alone in this.","You matter more than this exam.","You’re doing your best — and that’s enough.","You’ve got quiet strength.","You don’t quit — I know that.","You’re learning even on bad days.","You’re more prepared than you feel.","You’re going to make it.","You’ve already proven your strength.","You’re not starting from zero.","You’re building momentum.","You’re doing something hard — and that’s brave.","You’re going to thank yourself later.","You’re closer than you think.","You’re allowed to struggle and still succeed.","You’re doing amazing, even now.","You’re not behind — you’re on your path.","You’re growing every single day.","You’re not giving up — and that’s everything.","You’ve got this, I promise.","You’re going to win this.","You are enough.","You’re becoming stronger every day.","You’re doing more than you realize","You’re not late — you’re on time for your journey"
+];
+
+/* BAD DAY (40+) */
+const badDay = [
+"It’s okay to feel like this. Just don’t stop.","You’ve handled harder days.","You don’t need to do everything. Just start.","Even 20 minutes counts today.","You’re not alone in this.","You’re allowed to feel overwhelmed.","You don’t need to have it all figured out.","You just need to begin.","Start messy. Start small.","This feeling will pass.","You’ve survived every bad day so far.","You don’t need motivation — just action.","Take a deep breath. You’re okay.","You can restart anytime.","Today doesn’t define your outcome.","You’re not failing — just tired.","You don’t need to rush.","You’re doing your best.","You can slow down, not stop.","You’ve got more strength than you think.","This is temporary.","You’re still in the game.","One small step is enough.","You’re allowed to struggle.","You’re not weak — you’re human.","You’re doing something hard.","You will get through this.","You don’t need perfection.","You just need persistence.","You’ve come too far to quit.","You can do this again.","Take it one step at a time.","You’re stronger than this moment.","You’re not alone — not ever.","You’ve got this, even now.","You are capable, even today.","Pause, breathe, then continue.","You’re allowed to take breaks.","Even slow progress is progress.","Don’t give up on a bad day","You’re stronger than your doubts"
+];
+
+/* NICE (40+) */
+const niceList = [
+"You’re smarter than this exam.","You’ve got this, trust me.","FAR is scared of you.","You’re genuinely amazing.","Also… you’re very cute 😌","You’re built for this.","You’re going to pass.","You’re doing better than most.","You’ve got sharp instincts.","You’re focused and strong.","You’re improving daily.","You’re more prepared than you think.","You’re handling pressure well.","You’re doing something big.","You’re going to make it happen.","You’re consistent — that wins.","You’re calm under pressure.","You’ve got clarity.","You’re smart and disciplined.","You’re growing fast.","You’re capable of more than you know.","You’re strong mentally.","You’re going to prove yourself right.","You’re unstoppable when you focus.","You’ve got this under control.","You’re a fighter.","You’re not average.","You’re doing something meaningful.","You’re showing up — that’s powerful.","You’re already ahead in mindset.","You’re determined.","You’re going to succeed.","You’re resilient.","You’re confident deep down.","You’re handling this well.","You’re doing enough.","You’re built different 😤","You’re leveling up every day.","You’re stronger than yesterday.","You’re making progress"
+];
+
+/* FUNNY (30+) */
+const funny = [
+"FAR: scares you → you still show up 😤","Main character energy with emotional damage 💅","Passing > crying (but both allowed)","Stress level: dramatic but still studying","Mentally tired, academically still fighting 😭","FAR vs you = you winning (eventually)","Crying but make it productive 💅","Brain: no → you: yes","Emotionally unstable, academically unstoppable","FAR tried. You didn’t quit.","Studying while mentally buffering ⏳","Low energy, high expectations 😭","You vs syllabus — cinematic battle","Still standing. Still studying.","Delulu but determined 💖","Surviving purely on vibes and effort","Half breakdown, full comeback","Messy but moving forward","Anxious but consistent","Tired but not quitting","Mentally gone, physically studying 😭","Motivation 0%, discipline 100%","Still here, still trying 😤","Emotionally tired but academically active","FAR thought you’d quit… wrong move","Crying but still solving questions","Brain loading… still studying","Overthinking but still progressing","One more chapter, one more breakdown","Unstable but unstoppable 💖"
+];
+
+/* FUNCTIONS */
+function newNote(){ document.getElementById("note").innerText = notes[Math.floor(Math.random()*notes.length)]; }
+function showBad(){ document.getElementById("badText").innerText = badDay[Math.floor(Math.random()*badDay.length)]; }
+function fun(){ document.getElementById("funny").innerText = funny[Math.floor(Math.random()*funny.length)]; }
+function nice(){ document.getElementById("niceText").innerText = niceList[Math.floor(Math.random()*niceList.length)]; }
+function win(){ confetti({particleCount:150,spread:100}); }
+function missMe(){ alert("I’m right here 💖 Now go study a little."); }
+
+</script>
+
+</body>
+</html>
